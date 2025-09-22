@@ -20,7 +20,6 @@
             outline: none; border-color: #ffd1dc;
             box-shadow: 0 0 0 2px rgba(255, 209, 220, 0.5);
         }
-        /* ADDED: Simple CSS for the loading spinner */
         .loader {
             border: 2px solid #f3f3f3;
             border-top: 2px solid #555;
@@ -111,7 +110,7 @@
             }
         }
         
-        // MODIFIED: Header text color
+        // --- MODIFIED: Header for left-aligned title ---
         function renderHeader() {
             return `
                 <header class="p-4 sticky top-0 bg-white/80 backdrop-blur-sm z-10 shadow-sm flex items-center justify-between h-16 relative">
@@ -125,7 +124,7 @@
             `;
         }
         
-        // MODIFIED: Login screen button colors
+        // --- MODIFIED: Login screen UI updated with image and layout changes ---
         function renderLogin() {
             const otpBoxesHTML = `
                 <div class="flex justify-center">
@@ -133,174 +132,65 @@
                 </div>
             `;
             
-            return `<div class="p-6 flex flex-col items-center">
-                        <h2 class="text-xl font-semibold mb-2 text-gray-800">Login or Sign Up</h2>
-                        <p class="text-gray-600 mb-6 text-center">Enter your phone number to continue.</p>
-                        
-                        <form data-action="sendOtp" class="w-full">
-                            <div class="flex items-center gap-2">
-                                <div id="country-code" data-value="+91" class="flex items-center p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
-                                    <span>🇮🇳</span>
-                                    <span class="ml-2">+91</span>
-                                </div>
-                                <input id="phone-number" type="tel" placeholder="9999988888" class="flex-1 p-3 border border-gray-300 rounded-lg" required />
-                            </div>
-                            <button id="send-otp-btn" type="submit" class="w-full mt-4 text-black font-bold py-3 rounded-lg flex justify-center items-center" style="background-color: #ffd1dc;">
-                                <span class="button-text">Send OTP</span>
-                                <div class="loader-container hidden"><div class="loader"></div></div>
-                            </button>
-                        </form>
+            // **IMPORTANT**: Replace this placeholder link with your actual image URL from Canva.
+            const imageUrl = "https://i.ibb.co/Gv0Yc5C4/Welcome-to-maskaari.png";
 
-                        <div id="recaptcha-container" class="mt-4"></div>
-                        
-                        <div id="otp-section" class="w-full mt-6 ${state.loginState.isOtpSent ? '' : 'hidden'}">
-                             <p class="text-gray-600 mb-4 text-center">Enter the 6-digit code sent to your number.</p>
-                             <form data-action="verifyOtp">
-                                ${otpBoxesHTML}
-                                <button id="verify-otp-btn" type="submit" class="w-full mt-4 text-black font-bold py-3 rounded-lg flex justify-center items-center" style="background-color: #ffd1dc;">
-                                    <span class="button-text">Verify OTP</span>
+            return `<div>
+                        <img src="${imageUrl}" alt="Maskaari Welcome Banner" class="w-full h-auto" />
+                        <div class="p-6 flex flex-col items-center">
+                            <h2 class="text-xl font-semibold mb-2 text-gray-800">Login or Sign Up</h2>
+                            <p class="text-gray-600 mb-6 text-center">Enter your phone number to continue.</p>
+                            
+                            <form data-action="sendOtp" class="w-full">
+                                <div class="flex items-center gap-2">
+                                    <div id="country-code" data-value="+91" class="flex items-center p-3 border border-gray-300 rounded-lg bg-white text-gray-800">
+                                        <span>🇮🇳</span>
+                                        <span class="ml-2">+91</span>
+                                    </div>
+                                    <input id="phone-number" type="tel" placeholder="9999988888" class="flex-1 p-3 border border-gray-300 rounded-lg" required />
+                                </div>
+                                <button id="send-otp-btn" type="submit" class="w-full mt-4 text-black font-bold py-3 rounded-lg flex justify-center items-center" style="background-color: #ffd1dc;">
+                                    <span class="button-text">Send OTP</span>
                                     <div class="loader-container hidden"><div class="loader"></div></div>
                                 </button>
                             </form>
+
+                            <div id="recaptcha-container" class="mt-4"></div>
+                            
+                            <div id="otp-section" class="w-full mt-6 ${state.loginState.isOtpSent ? '' : 'hidden'}">
+                                <p class="text-gray-600 mb-4 text-center">Enter the 6-digit code sent to your number.</p>
+                                <form data-action="verifyOtp">
+                                    ${otpBoxesHTML}
+                                    <button id="verify-otp-btn" type="submit" class="w-full mt-4 text-black font-bold py-3 rounded-lg flex justify-center items-center" style="background-color: #ffd1dc;">
+                                        <span class="button-text">Verify OTP</span>
+                                        <div class="loader-container hidden"><div class="loader"></div></div>
+                                    </button>
+                                </form>
+                            </div>
                         </div>
                     </div>`;
         }
-        
-        // MODIFIED: Create profile button color
-        function renderCreateProfile() { 
-            return `<div class="p-6">
-                        <h2 class="text-2xl font-bold mb-4">Complete Your Profile</h2>
-                        <p class="text-gray-600 mb-6">Welcome! Please enter your details to continue.</p>
-                        <form data-action="saveProfile">
-                            <div class="mb-4"><label for="name" class="block text-sm font-medium text-gray-700">Name</label><input id="name" type="text" placeholder="Your full name" class="mt-1 w-full p-3 border border-gray-300 rounded-lg" required /></div>
-                            <div class="mb-6"><label for="address" class="block text-sm font-medium text-gray-700">Address</label><textarea id="address" placeholder="Your delivery address" class="mt-1 w-full p-3 border border-gray-300 rounded-lg" rows="3" required></textarea></div>
-                            <button id="save-profile-btn" type="submit" class="w-full text-black font-bold py-3 rounded-lg flex justify-center items-center" style="background-color: #ffd1dc;">
-                                <span class="button-text">Save and Continue</span>
-                                <div class="loader-container hidden"><div class="loader"></div></div>
-                            </button>
-                        </form>
-                    </div>`; 
-        }
 
-        // --- All other functions are unchanged in their content ---
+        // --- All other functions below are unchanged ---
         function renderFooter() { const totalCartItems = state.cart.reduce((sum, item) => sum + item.quantity, 0); return `<footer class="fixed bottom-0 left-0 right-0 max-w-md mx-auto bg-white border-t border-gray-200"><nav class="flex justify-around h-16"><button data-action="setView" data-view="menu" class="flex flex-col items-center justify-center w-1/2 ${state.view === 'menu' ? 'text-green-600' : 'text-gray-500'}"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path></svg><span class="text-xs font-medium">Menu</span></button><button data-action="setView" data-view="cart" class="relative flex flex-col items-center justify-center w-1/2 ${state.view === 'cart' ? 'text-green-600' : 'text-gray-500'}"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c.51 0 .962-.343 1.087-.835l1.838-5.514a1.875 1.875 0 0 0-1.642-2.58H5.169m-1.883 5.514A2.25 2.25 0 0 1 6.331 8.25h11.338a2.25 2.25 0 0 1 2.15 3.28l-1.838 5.514a2.25 2.25 0 0 1-2.15 1.626H6.331a2.25 2.25 0 0 1-2.15-3.28l.044-.135Z"></path></svg>${totalCartItems > 0 ? `<span class="absolute top-1 right-1/2 -mr-8 w-5 h-5 bg-green-600 text-white text-xs font-bold rounded-full flex items-center justify-center">${totalCartItems}</span>` : ''}<span class="text-xs font-medium">Cart</span></button></nav></footer>`;}
         function renderCurrentView() { switch (state.view) { case 'menu': return renderMenu(); case 'cart': return renderCart(); case 'login': return renderLogin(); case 'createProfile': return renderCreateProfile(); case 'profile': return renderProfilePage(); default: return renderLogin(); }}
+        function renderCreateProfile() { return `<div class="p-6"><h2 class="text-2xl font-bold mb-4">Complete Your Profile</h2><p class="text-gray-600 mb-6">Welcome! Please enter your details to continue.</p><form data-action="saveProfile"><div class="mb-4"><label for="name" class="block text-sm font-medium text-gray-700">Name</label><input id="name" type="text" placeholder="Your full name" class="mt-1 w-full p-3 border border-gray-300 rounded-lg" required /></div><div class="mb-6"><label for="address" class="block text-sm font-medium text-gray-700">Address</label><textarea id="address" placeholder="Your delivery address" class="mt-1 w-full p-3 border border-gray-300 rounded-lg" rows="3" required></textarea></div><button id="save-profile-btn" type="submit" class="w-full text-black font-bold py-3 rounded-lg flex justify-center items-center" style="background-color: #ffd1dc;"><span class="button-text">Save and Continue</span><div class="loader-container hidden"><div class="loader"></div></div></button></form></div>`; }
         function renderProfilePage() { if (!state.user) return `<h2>Not logged in</h2>`; return `<div class="p-6"><h2 class="text-2xl font-bold mb-6">My Details</h2><div class="bg-white p-4 rounded-lg shadow-sm space-y-3"><div><p class="text-sm text-gray-500">Name</p><p class="font-semibold">${state.user.name}</p></div><div><p class="text-sm text-gray-500">Phone</p><p class="font-semibold">${state.user.phoneNumber}</p></div><div><p class="text-sm text-gray-500">Address</p><p class="font-semibold">${state.user.address}</p></div></div><button data-action="logout" class="w-full bg-red-500 text-white font-bold py-3 rounded-lg hover:bg-red-600 mt-8">Logout</button></div>`; }
         function renderMenu() { const menuItemsHTML = state.menu.map(item => { const itemInCart = state.cart.find(cartItem => cartItem.id === item.id); let addButtonHTML; if (itemInCart) { addButtonHTML = `<div class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-24 h-9 bg-white shadow-lg rounded-md flex justify-between items-center text-green-600 font-bold"><button data-action="updateQuantity" data-id="${item.id}" data-change="-1" class="w-8 h-full flex items-center justify-center text-xl">-</button><span class="text-sm">${itemInCart.quantity}</span><button data-action="updateQuantity" data-id="${item.id}" data-change="1" class="w-8 h-full flex items-center justify-center text-xl">+</button></div>`; } else { addButtonHTML = `<button data-action="addToCart" data-id="${item.id}" class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-24 h-9 bg-white text-green-600 font-bold rounded-md shadow-lg text-sm hover:bg-green-50 active:scale-95 transition-all duration-200">ADD</button>`; } return `<div class="flex bg-white p-3 rounded-lg shadow-sm"><div class="flex-1 pr-4"><h3 class="font-bold text-md text-gray-800">${item.name}</h3><p class="text-gray-500 text-sm my-1">${item.description}</p><p class="font-semibold text-gray-900">$${item.price.toFixed(2)}</p></div><div class="relative w-24 h-24 flex-shrink-0"><img src="${item.image}" alt="${item.name}" class="w-full h-full rounded-md object-cover" />${addButtonHTML}</div></div>` }).join(''); return `<div class="p-4 space-y-4"><h1 class="text-3xl font-bold">Good morning!</h1>${menuItemsHTML}</div>`; }
         function renderCart() { const cartItemsHTML = state.cart.map(item => `<div class="flex items-center justify-between py-3"><div class="flex items-center"><img src="${item.image}" alt="${item.name}" class="w-12 h-12 rounded-md object-cover mr-3"/><div><p class="font-semibold text-sm">${item.name}</p><p class="text-gray-600 text-sm">$${item.price.toFixed(2)}</p></div></div><div class="flex items-center border border-gray-300 rounded-md"><button data-action="updateQuantity" data-id="${item.id}" data-change="-1" class="p-1"><svg class="w-4 h-4 text-gray-600 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 12H6"></path></svg></button><span class="px-3 text-sm font-bold">${item.quantity}</span><button data-action="updateQuantity" data-id="${item.id}" data-change="1" class="p-1"><svg class="w-4 h-4 text-gray-600 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12m6-6H6"></path></svg></button></div></div>`).join(''); const subtotal = state.cart.reduce((sum, item) => sum + item.price * item.quantity, 0); const deliveryFee = 2.50; const total = subtotal + deliveryFee; return `<div class="p-4 h-full flex flex-col"><h2 class="text-2xl font-bold mb-4">Your Order</h2><div class="flex-1 overflow-y-auto">${cartItemsHTML}</div><div class="border-t pt-4 mt-4"><div class="flex justify-between text-gray-600 mb-1"><p>Subtotal</p><p>$${subtotal.toFixed(2)}</p></div><div class="flex justify-between text-gray-600 mb-2"><p>Delivery Fee</p><p>$${deliveryFee.toFixed(2)}</p></div><div class="flex justify-between font-bold text-lg"><p>Total</p><p>$${total.toFixed(2)}</p></div><button class="w-full text-black font-bold py-3 rounded-lg" style="background-color: #ffd1dc;">Place Order</button></div></div>`; }
-
-        // ===================================================================================
-        // EVENT HANDLERS & LOGIC
-        // ===================================================================================
-
-        // MODIFIED: Added loader and instant UI update
-        function handleSendOtp() {
-            const countryCode = document.getElementById('country-code').dataset.value;
-            const phoneNumberInput = document.getElementById('phone-number').value;
-            const fullPhoneNumber = countryCode + phoneNumberInput;
-            const appVerifier = window.recaptchaVerifier;
-            const sendOtpButton = document.getElementById('send-otp-btn');
-            
-            showLoader(sendOtpButton);
-            
-            // Show OTP section immediately
-            document.getElementById('otp-section').classList.remove('hidden');
-            document.getElementById('otp-0').focus();
-
-            auth.signInWithPhoneNumber(fullPhoneNumber, appVerifier)
-                .then((confirmationResult) => {
-                    state.loginState.confirmationResult = confirmationResult;
-                    state.loginState.isOtpSent = true;
-                    sendOtpButton.querySelector('.button-text').textContent = 'Resend OTP';
-                    hideLoader(sendOtpButton);
-                }).catch((error) => {
-                    console.error("Error sending OTP", error);
-                    alert("Error: Could not send OTP. Please check the number and try again.");
-                    hideLoader(sendOtpButton);
-                    // Hide OTP section again if send failed
-                    document.getElementById('otp-section').classList.add('hidden');
-                });
-        }
-        
-        // MODIFIED: Added loader
-        function handleVerifyOtp() {
-            const verifyButton = document.getElementById('verify-otp-btn');
-            showLoader(verifyButton);
-            let otp = '';
-            for (let i = 0; i < 6; i++) { otp += document.getElementById(`otp-${i}`).value; }
-            if (otp.length < 6) { 
-                alert("Please enter the complete 6-digit OTP."); 
-                hideLoader(verifyButton);
-                return; 
-            }
-
-            state.loginState.confirmationResult.confirm(otp).then((result) => {
-                const user = result.user;
-                const userRef = db.collection('users').doc(user.phoneNumber);
-                userRef.get().then((doc) => {
-                    if (doc.exists) {
-                        state.user = { phoneNumber: user.phoneNumber, ...doc.data() };
-                        state.view = 'menu';
-                    } else {
-                        state.user = { phoneNumber: user.phoneNumber };
-                        state.view = 'createProfile';
-                    }
-                    state.loginState = { isOtpSent: false, confirmationResult: null };
-                    render(); // This will hide the loader by re-rendering the page
-                });
-            }).catch((error) => {
-                console.error("Error verifying OTP", error);
-                alert("Invalid OTP. Please try again.");
-                hideLoader(verifyButton);
-            });
-        }
-        
-        // MODIFIED: Added loader
-        function handleSaveProfile() {
-            const saveButton = document.getElementById('save-profile-btn');
-            showLoader(saveButton);
-            const name = document.getElementById('name').value; 
-            const address = document.getElementById('address').value; 
-            const userProfile = { name, address }; 
-            
-            db.collection('users').doc(state.user.phoneNumber).set(userProfile)
-                .then(() => {
-                    console.log("Profile saved!"); 
-                    state.user = { ...state.user, ...userProfile }; 
-                    state.view = 'menu'; 
-                    render();
-                })
-                .catch((error) => {
-                    console.error("Error saving profile: ", error); 
-                    alert("Could not save profile. Please try again.");
-                    hideLoader(saveButton);
-                });
-        }
-        
+        function handleSendOtp() { const countryCode = document.getElementById('country-code').dataset.value; const phoneNumberInput = document.getElementById('phone-number').value; const fullPhoneNumber = countryCode + phoneNumberInput; const appVerifier = window.recaptchaVerifier; const sendOtpButton = document.getElementById('send-otp-btn'); showLoader(sendOtpButton); document.getElementById('otp-section').classList.remove('hidden'); document.getElementById('otp-0').focus(); auth.signInWithPhoneNumber(fullPhoneNumber, appVerifier) .then((confirmationResult) => { state.loginState.confirmationResult = confirmationResult; state.loginState.isOtpSent = true; sendOtpButton.querySelector('.button-text').textContent = 'Resend OTP'; hideLoader(sendOtpButton); }).catch((error) => { console.error("Error sending OTP", error); alert("Error: Could not send OTP. Please check the number and try again."); hideLoader(sendOtpButton); document.getElementById('otp-section').classList.add('hidden'); }); }
+        function handleVerifyOtp() { const verifyButton = document.getElementById('verify-otp-btn'); showLoader(verifyButton); let otp = ''; for (let i = 0; i < 6; i++) { otp += document.getElementById(`otp-${i}`).value; } if (otp.length < 6) { alert("Please enter the complete 6-digit OTP."); hideLoader(verifyButton); return; } state.loginState.confirmationResult.confirm(otp).then((result) => { const user = result.user; const userRef = db.collection('users').doc(user.phoneNumber); userRef.get().then((doc) => { if (doc.exists) { state.user = { phoneNumber: user.phoneNumber, ...doc.data() }; state.view = 'menu'; } else { state.user = { phoneNumber: user.phoneNumber }; state.view = 'createProfile'; } state.loginState = { isOtpSent: false, confirmationResult: null }; render(); }); }).catch((error) => { console.error("Error verifying OTP", error); alert("Invalid OTP. Please try again."); hideLoader(verifyButton); }); }
+        function handleSaveProfile() { const saveButton = document.getElementById('save-profile-btn'); showLoader(saveButton); const name = document.getElementById('name').value; const address = document.getElementById('address').value; const userProfile = { name, address }; db.collection('users').doc(state.user.phoneNumber).set(userProfile) .then(() => { console.log("Profile saved!"); state.user = { ...state.user, ...userProfile }; state.view = 'menu'; render(); }) .catch((error) => { console.error("Error saving profile: ", error); alert("Could not save profile. Please try again."); hideLoader(saveButton); }); }
         function handleLogout() { auth.signOut().then(() => { state.user = null; state.cart = []; state.view = 'login'; render(); }).catch((error) => { console.error("Logout Error", error); }); }
         function handleSetView(view) { state.view = view; render(); }
         function handleAddToCart(itemId) { const itemInMenu = state.menu.find(item => item.id === itemId); const itemInCart = state.cart.find(item => item.id === itemId); if (itemInCart) { itemInCart.quantity++; } else { state.cart.push({ ...itemInMenu, quantity: 1 }); } render(); }
         function handleUpdateQuantity(itemId, change) { const itemInCart = state.cart.find(item => item.id === itemId); if (itemInCart) { itemInCart.quantity += change; if (itemInCart.quantity <= 0) { state.cart = state.cart.filter(item => item.id !== itemId); } } render(); }
         function handlePlaceOrder() { if (!state.user) { alert("Please log in to place an order."); state.view = 'login'; render(); return; } alert(`Order for ${state.user.name} placed! (This is a demo)`); state.cart = []; state.view = 'menu'; render(); }
-        
-        // ===================================================================================
-        // EVENT LISTENER (Event Delegation)
-        // ===================================================================================
-        document.getElementById('app').addEventListener('click', function(event) {
-            const target = event.target.closest('button'); if (!target) return; const { action, view, id, change } = target.dataset; if (action === 'logout') handleLogout(); if (action === 'setView') handleSetView(view); if (action === 'addToCart') handleAddToCart(parseInt(id)); if (action === 'updateQuantity') handleUpdateQuantity(parseInt(id), parseInt(change)); if (action === 'placeOrder') handlePlaceOrder();
-        });
-
-        document.getElementById('app').addEventListener('submit', function(event) {
-            event.preventDefault(); const { action } = event.target.dataset; if (action === 'sendOtp') handleSendOtp(); if (action === 'verifyOtp') handleVerifyOtp(); if (action === 'saveProfile') handleSaveProfile();
-        });
-        
+        document.getElementById('app').addEventListener('click', function(event) { const target = event.target.closest('button'); if (!target) return; const { action, view, id, change } = target.dataset; if (action === 'logout') handleLogout(); if (action === 'setView') handleSetView(view); if (action === 'addToCart') handleAddToCart(parseInt(id)); if (action === 'updateQuantity') handleUpdateQuantity(parseInt(id), parseInt(change)); if (action === 'placeOrder') handlePlaceOrder(); });
+        document.getElementById('app').addEventListener('submit', function(event) { event.preventDefault(); const { action } = event.target.dataset; if (action === 'sendOtp') handleSendOtp(); if (action === 'verifyOtp') handleVerifyOtp(); if (action === 'saveProfile') handleSaveProfile(); });
         document.getElementById('app').addEventListener('input', function(event) { if (event.target.matches('.otp-input')) { const input = event.target; const index = parseInt(input.dataset.index); if (input.value.length > 1) { const pastedCode = input.value.slice(0, 6); for (let i = 0; i < pastedCode.length; i++) { document.getElementById(`otp-${i}`).value = pastedCode[i]; } if (pastedCode.length < 6) { document.getElementById(`otp-${pastedCode.length}`).focus(); } else { document.getElementById(`otp-5`).focus(); } return; } if (input.value && index < 5) { document.getElementById(`otp-${index + 1}`).focus(); } } });
         document.getElementById('app').addEventListener('keydown', function(event) { if (event.key === 'Backspace' && event.target.matches('.otp-input')) { const input = event.target; const index = parseInt(input.dataset.index); if (!input.value && index > 0) { document.getElementById(`otp-${index - 1}`).focus(); } } });
-        
-        // ===================================================================================
-        // INITIALIZATION
-        // ===================================================================================
-        render(); // Initial render of the app
+        render();
     </script>
 </body>
 </html>
